@@ -107,6 +107,9 @@
   ;; :commands lsp)
 
 ;; Keybindings
+(map! :leader
+      :desc "Find File DWIM"
+      "f o" #'projectile-find-file-dwim)
 ;; (map! :leader
       ;; :desc "List buffers"
       ;; "b L" #'list-buffers)
