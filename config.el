@@ -85,10 +85,15 @@
 ;; relative line numbers
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
+;; Enable time in the mode-line
+(display-time-mode t)
 (setq
-;; treemacs
- treemacs-show-cursor t
- projectile-project-search-path '("~/Projects/"))
+  ;; treemacs
+  treemacs-show-cursor t
+  projectile-project-search-path '("~/Projects/")
+
+  ;; faster popup
+  which-key-idle-delay 0.2)
 ;; projectile
 ;; (setq doom-themes-treemacs-theme "doom-colors")
 ;; (treemacs-load-theme 'all-the-icons)
@@ -110,6 +115,9 @@
 (map! :leader
       :desc "Find File DWIM"
       "f o" #'projectile-find-file-dwim)
+(map!
+ :desc "Redo"
+ "U" #'evil-redo)
 ;; (map! :leader
       ;; :desc "List buffers"
       ;; "b L" #'list-buffers)
