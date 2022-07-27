@@ -49,5 +49,4 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! svelte-mode)
 (package! treemacs-all-the-icons)

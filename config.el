@@ -21,7 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Source Code Pro" :size 15 :weight 'medium)
+(setq doom-font (font-spec :family "Source Code Pro" :size 14 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -77,7 +77,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 ;; Settings
 ;;
 ;; relative line numbers
@@ -124,9 +127,6 @@
 (map! :leader
       :desc "Find File DWIM"
       "f o" #'projectile-find-file-dwim)
-(map!
- :desc "Redo"
- "U" #'evil-redo)
 ;; (map! :leader
       ;; :desc "List buffers"
       ;; "b L" #'list-buffers)
@@ -135,8 +135,23 @@
 ;;       "\ t" (treemacs))
 
 
+;; Evil normal state
+(define-key evil-normal-state-map (kbd "U") 'evil-undo)
+
+;; svelte-mode
+;; (use-package! svelte-mode
+;;   :after
+;;   web-mode
+;;   :config
+;;   (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode)))
+(add-hook 'web-mode-local-vars-hook #'lsp!)
+;; (after! (:and web-mode svelte-mode)
+  ;; (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode)))
+
+;; custom functions
 (defun gm/backup-dotdoom ()
   "Create a commit with the latest changes and push to the remote"
+  (interactive)
   (let ((default-directory "~/.doom.d/"))
     (call-process "git" nil "Messages" t "add" "-A")
     (call-process "git" nil "Messages" t "commit" "-m"
