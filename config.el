@@ -134,10 +134,6 @@
 ;;       :desc "Treemacs"
 ;;       "\ t" (treemacs))
 
-(defun gm/git-pull ()
-  "Pull in the latest changes from the remote"
-  ;;(let ((default-directory "~/.doom.d/"))
-    (shell-command "git pull --rebase"))
 
 (defun gm/backup-dotdoom ()
   "Create a commit with the latest changes and push to the remote"
@@ -145,4 +141,6 @@
     (call-process "git" nil "Messages" t "add" "-A")
     (call-process "git" nil "Messages" t "commit" "-m"
       (format "Backup at %s"
-        (current-time-string)))))
+        (current-time-string)))
+    (call-process "git" nil "Messages" t "pull" "--rebase")
+    (call-process "git" nil "Messages" t "push" "origin" "main")))
