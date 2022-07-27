@@ -77,23 +77,32 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Packages
-;;(use-package! svelte-mode)
 
 ;; Settings
 ;;
 ;; relative line numbers
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
+
 ;; Enable time in the mode-line
 (display-time-mode t)
+
+;; General
 (setq
   ;; treemacs
   treemacs-show-cursor t
   projectile-project-search-path '("~/Projects/")
 
+  ;; open Emacs from here
+  default-directory "~/"
+
+  ;; backup policies
+  backup-by-copying t                          ;; don't clobber symlinks
+  backup-directory-alist '(("." . temporary-file-directory)) ;; don't litter my fs tree
+
   ;; faster popup
   which-key-idle-delay 0.2)
+
 ;; projectile
 ;; (setq doom-themes-treemacs-theme "doom-colors")
 ;; (treemacs-load-theme 'all-the-icons)
@@ -124,3 +133,16 @@
 ;; (map! :leader
 ;;       :desc "Treemacs"
 ;;       "\ t" (treemacs))
+
+(defun gm/git-pull ()
+  "Pull in the latest changes from the remote"
+  ;;(let ((default-directory "~/.doom.d/"))
+    (shell-command "git pull --rebase"))
+
+(defun gm/backup-dotdoom ()
+  "Create a commit with the latest changes and push to the remote"
+  (let ((default-directory "~/.doom.d/"))
+    (call-process "git" nil "Messages" t "add" "-A")
+    (call-process "git" nil "Messages" t "commit" "-m"
+      (format "Backup at %s"
+        (current-time-string)))))
